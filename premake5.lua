@@ -27,3 +27,5 @@ project "Engine"
     language "C++"
     
     files { "Engine/src/**.h", "Engine/src/**.cpp" }
+
+    includedirs { "Engine/src" }
