@@ -1,9 +1,8 @@
 #pragma once
 
-#include "Mathematics.h"
+#include "Math.h"
 
 namespace Lumex {
-	namespace Mathematics {
 
 		/*
 		CartesianVector is a Vector that is represented with X, Y, and Z
@@ -22,7 +21,6 @@ namespace Lumex {
 			/*
 			These calculate the length of the vector
 			SquaredMagnitude is much faster and should be used for length comparisons between vectors
-			To save time, Magnitude is an approximation of the length that is often within 0.000002% of the true length
 			*/
 			float Magnitude() const;
 			float SquaredMagnitude() const;
@@ -42,5 +40,4 @@ namespace Lumex {
 		/* Operator overload for multiplication where the scalar is on the left */
 		CartesianVector operator*(float scalar, const CartesianVector& cv);
 
-	}
 }

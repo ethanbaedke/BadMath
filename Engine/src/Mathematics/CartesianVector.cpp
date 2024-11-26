@@ -3,7 +3,6 @@
 #include <xmmintrin.h>
 
 namespace Lumex {
-	namespace Mathematics {
 
 		CartesianVector::CartesianVector()
 		{
@@ -17,7 +16,7 @@ namespace Lumex {
 		float CartesianVector::Magnitude() const
 		{
 			float sm = SquaredMagnitude();
-			float mag = SquareRoot(sm);
+			float mag = Math::SquareRoot(sm);
 			return mag;
 		}
 
@@ -165,5 +164,4 @@ namespace Lumex {
 
 			return resultVec;
 		}
-	}
 }
