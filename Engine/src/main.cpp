@@ -3,8 +3,18 @@
 
 #include "Mathematics/CartesianVector.h"
 #include "Mathematics/CylindricalVector.h"
+#include "Mathematics/SphericalVector.h"
 
 using namespace Lumex;
+
+void DEBUG_SphericalVector(const SphericalVector& vector)
+{
+	std::cout << "	Radius = " + std::to_string(vector.Radius) << std::endl;
+	std::cout << "	Phi = " + std::to_string(vector.Phi) << std::endl;
+	std::cout << "	Theta = " + std::to_string(vector.Theta) << std::endl;
+	std::cout << "	Magnitude = " << std::to_string(vector.Radius) << std::endl;
+	std::cout << "	Squared Magnitude = " << std::to_string(vector.Radius * vector.Radius) << std::endl;
+}
 
 void DEBUG_CylindricalVector(const CylindricalVector& vector)
 {
@@ -22,6 +32,43 @@ void DEBUG_CartesianVector(const CartesianVector& vector)
 	std::cout << "	Z = " + std::to_string(vector.Z) << std::endl;
 	std::cout << "	Magnitude = " << std::to_string(vector.Magnitude()) << std::endl;
 	std::cout << "	Squared Magnitude = " << std::to_string(vector.SquaredMagnitude()) << std::endl;
+}
+
+void TEST_SphericalVector(const SphericalVector& vecA, const SphericalVector& vecB)
+{
+	std::cout << std::endl << "Testing Spherical Vector..." << std::endl;
+
+	std::cout << "Vector A" << std::endl;
+	DEBUG_SphericalVector(vecA);
+
+	std::cout << "Vector B" << std::endl;
+	DEBUG_SphericalVector(vecB);
+
+	std::cout << "Vector A + B" << std::endl;
+	DEBUG_SphericalVector(vecA + vecB);
+
+	std::cout << "Vector -A" << std::endl;
+	DEBUG_SphericalVector(-vecA);
+
+	std::cout << "Vector A - B" << std::endl;
+	DEBUG_SphericalVector(vecA - vecB);
+
+	std::cout << "Vector A * 10" << std::endl;
+	DEBUG_SphericalVector(vecA * 10.0f);
+
+	std::cout << "Vector A / 10" << std::endl;
+	DEBUG_SphericalVector(vecA / 10.0f);
+
+	std::cout << "A Dot B = " << vecA.DotProduct(vecB) << std::endl;
+
+	std::cout << "Vector Linear Interpolate A->B (50%)" << std::endl;
+	DEBUG_SphericalVector(vecA.LinearInterpolate(vecB, 0.5f));
+
+	std::cout << "Convert A to Cartesian Vector" << std::endl;
+	DEBUG_CartesianVector(vecA.ToCartesian());
+
+	std::cout << "Convert B to Cartesian Vector" << std::endl;
+	DEBUG_CartesianVector(vecB.ToCartesian());
 }
 
 void TEST_CylindricalVector(const CylindricalVector& vecA, const CylindricalVector& vecB)
@@ -86,7 +133,10 @@ void TEST_CartesianVector(const CartesianVector& vecA, const CartesianVector& ve
 	std::cout << "Vector A / 10" << std::endl;
 	DEBUG_CartesianVector(vecA / 10.0f);
 
-	std::cout << "A Dot B = " << vecA.DotProduct(vecB) << std::endl;
+	std::cout << "A Dot B = " << std::to_string(vecA.DotProduct(vecB)) << std::endl;
+
+	std::cout << "Vector A Cross B" << std::endl;
+	DEBUG_CartesianVector(vecA.CrossProduct(vecB));
 
 	std::cout << "Vector Linear Interpolate A->B (50%)" << std::endl;
 	DEBUG_CartesianVector(vecA.LinearInterpolate(vecB, 0.5f));
@@ -103,6 +153,10 @@ void TEST_Vectors()
 	CylindricalVector cylindricalVecA(2.0f, Math::SquareRoot(10.0f), Math::Arctan2(3.0f, 1.0f));
 	CylindricalVector cylindricalVecB(4.0f, Math::SquareRoot(40.0f), Math::Arctan2(6.0f, 2.0f));
 	TEST_CylindricalVector(cylindricalVecA, cylindricalVecB);
+
+	SphericalVector sphericalVecA(Math::SquareRoot(14.0f), Math::Arccos(2.0f / Math::SquareRoot(14.0f)), Math::Arctan2(3.0f, 1.0f));
+	SphericalVector sphericalVecB(Math::SquareRoot(56.0f), Math::Arccos(4.0f / Math::SquareRoot(56.0f)), Math::Arctan2(6.0f, 2.0f));
+	TEST_SphericalVector(sphericalVecA, sphericalVecB);
 }
 
 void TEST_UnitCircle()
@@ -117,6 +171,9 @@ void TEST_UnitCircle()
 
 	std::cout << "Tangent Approximation (-5/3 PI) = " + std::to_string(Math::Tan((-5.0f / 3.0f) * Math::PI)) << std::endl;
 	std::cout << "Tangent Approximation (4/3 PI) = " + std::to_string(Math::Tan((4.0f / 3.0f) * Math::PI)) << std::endl;
+
+	std::cout << "Arccos Approximation (y=1, x=-1) = " + std::to_string(Math::Arccos(1.0f / -1.0f)) << std::endl;
+	std::cout << "Arccos Approximation (y=-1, x=-1) = " + std::to_string(Math::Arccos(-1.0f / -1.0f)) << std::endl;
 
 	std::cout << "Arctan2 Approximation (y=1, x=-1) = " + std::to_string(Math::Arctan2(1.0f, -1.0f)) << std::endl;
 	std::cout << "Arctan2 Approximation (y=-1, x=-1) = " + std::to_string(Math::Arctan2(-1.0f, -1.0f)) << std::endl;

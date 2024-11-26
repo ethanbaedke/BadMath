@@ -9,16 +9,23 @@ namespace Lumex {
 
 		static float SquareRoot(float x);
 
+		/* Basic trigonometric functions */
 		static float Sin(float radian);
 		static float Cos(float radian);
 		static float Tan(float radian);
 
-		/* Returns the angle from the +x-axis to the point defined by x and y in Cartesian Coordinates */
-		static float Arctan2(float x, float y);
+		/* This is an approximation of the arccosine of the input ratio (y/x (Cartesian)) that is often within 0.01% of the true radian */
+		static float Arccos(float ratio);
+
+		/* Returns the angle from the +x-axis to the point defined by x and y (Cartesian) */
+		static float Arctan2(float y, float x);
 
 	private:
 
-		/* This is an approximation of the inverse of a square root that is often within 0.000002% of the true length */
+		/*
+		This is an approximation of the inverse of a square root that is often within 0.000002% of the true length
+		This function is a copy of the famous Quake 3 inverse square root function
+		*/
 		static float InverseSquareRoot(float x);
 
 		/*
@@ -31,7 +38,7 @@ namespace Lumex {
 		static float CalculateSinFromNormalizedRadian(float radian);
 		static float CalculateCosFromNormalizedRadian(float radian);
 
-		// This is an approximation of the arctangent of the input ratio (y/x) that is often within 0.02% of the true radian
+		// This is an approximation of the arctangent of the input ratio (y/x (Cartesian)) that is often within 0.02% of the true radian
 		static float Arctan(float ratio);
 	};
 

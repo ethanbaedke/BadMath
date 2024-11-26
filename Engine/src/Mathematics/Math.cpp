@@ -54,6 +54,18 @@ namespace Lumex {
 			return tanValue;
 		}
 
+		float Math::Arccos(float ratio)
+		{
+			// This is our first guess at what the value might be
+			float value = (Math::PI / 2);
+			
+			// Here we use a Newton-Raphson iteration formula to hone our value
+			for (int i = 0; i < 5; i++)
+				value += (Math::Cos(value) - ratio) / Math::Sin(value);
+
+			return value;
+		}
+
 		float Math::Arctan2(float y, float x)
 		{
 			// Handle X being zero to avoid division by zero
@@ -81,11 +93,17 @@ namespace Lumex {
 			// Get the arctan, making sure the input value to the function is between -1 and 1 (increases accuracy)
 			float arctanValue;
 			if (ratio > 1)
+			{
 				arctanValue = (PI / 2) - Arctan(1.0f / ratio);
+			}
 			else if (ratio < -1)
+			{
 				arctanValue = -((PI / 2) + Arctan(1.0f / ratio));
+			}
 			else
+			{
 				arctanValue = Arctan(ratio);
+			}
 
 			// Put the angle in the correct quadrent
 			// Quadrents 1 or 4
@@ -123,15 +141,23 @@ namespace Lumex {
 		{
 			if (radian > 0)
 			{
+				// Figure out how many PI's we need to backtrack for our radian to be normalized
 				int backtrack = (int)((radian / PI) + 0.5f);
+
+				// If it's an odd number, we are on the opposite side of the unit circle after being normalized
 				*outFlipSign = backtrack % 2 != 0;
+
 				float confined = radian - (PI * backtrack);
 				return confined;
 			}
 			else
 			{
+				// Figure out how many PI's we need to backtrack for our radian to be normalized
 				int backtrack = (int)((radian / PI) - 0.5f);
+
+				// If it's an odd number, we are on the opposite side of the unit circle after being normalized
 				*outFlipSign = backtrack % 2 != 0;
+
 				float confined = radian - (PI * backtrack);
 				return confined;
 			}
