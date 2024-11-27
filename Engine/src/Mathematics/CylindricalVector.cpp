@@ -48,6 +48,15 @@ namespace Lumex {
 		return result;
 	}
 
+	CylindricalVector CylindricalVector::Normalized() const
+	{
+		// Divide this vector by its magnitude
+		float magnitude = Magnitude();
+		CylindricalVector resultVec = operator*(1.0f / magnitude);
+
+		return resultVec;
+	}
+
 	float CylindricalVector::DotProduct(const CylindricalVector& other) const
 	{
 		float result = Radius * other.Radius * Math::Cos(Theta - other.Theta) + Height * other.Height;

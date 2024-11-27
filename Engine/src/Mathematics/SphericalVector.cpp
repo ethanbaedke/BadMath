@@ -21,11 +21,11 @@ namespace Lumex {
 		float cosTheta = Math::Cos(Theta);
 
 		// x = radius * sin(phi) * cos(theta)
-		// z = radius * sin(phi) * sin(theta)
 		// y = radius * cos(phi)
+		// z = radius * sin(phi) * sin(theta)
 		__m128 radius128 = _mm_set_ps(Radius, Radius, Radius, 0.0f);
-		__m128 phiTrig128 = _mm_set_ps(sinPhi, sinPhi, cosPhi, 0.0f);
-		__m128 thetaTrig128 = _mm_set_ps(cosTheta, sinTheta, 1.0f, 0.0f);
+		__m128 phiTrig128 = _mm_set_ps(sinPhi, cosPhi, sinPhi, 0.0f);
+		__m128 thetaTrig128 = _mm_set_ps(cosTheta, 1.0f, sinTheta, 0.0f);
 		__m128 mul128 = _mm_mul_ps(radius128, phiTrig128);
 		mul128 = _mm_mul_ps(mul128, thetaTrig128);
 		float results[4];
@@ -33,6 +33,15 @@ namespace Lumex {
 
 		// Create the cartesion vector with the converted results
 		CartesianVector resultVec(results[3], results[2], results[1]);
+
+		return resultVec;
+	}
+
+	SphericalVector SphericalVector::Normalized() const
+	{
+		// Make the radius one
+		SphericalVector resultVec(*this);
+		resultVec.Radius = 1.0f;
 
 		return resultVec;
 	}

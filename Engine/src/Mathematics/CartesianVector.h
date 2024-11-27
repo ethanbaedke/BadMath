@@ -25,6 +25,9 @@ namespace Lumex {
 			float Magnitude() const;
 			float SquaredMagnitude() const;
 
+			/* Returns a vector with the same direction as this with length one */
+			CartesianVector Normalized() const;
+
 			float DotProduct(const CartesianVector& other) const;
 			CartesianVector CrossProduct(const CartesianVector& other) const;
 			CartesianVector LinearInterpolate(const CartesianVector& other, float percent) const;

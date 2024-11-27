@@ -23,6 +23,9 @@ namespace Lumex {
 		/* Convert the vector into a vector in Cartesian Coordinates */
 		CartesianVector ToCartesian() const;
 
+		/* Returns a vector with the same direction as this with length one */
+		SphericalVector Normalized() const;
+
 		float DotProduct(const SphericalVector& other) const;
 		SphericalVector LinearInterpolate(const SphericalVector& other, float percent) const;
 

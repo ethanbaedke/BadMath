@@ -34,6 +34,15 @@ namespace Lumex {
 			return sum;
 		}
 
+		CartesianVector CartesianVector::Normalized() const
+		{
+			// Divide this vector by its magnitude
+			float magnitude = Magnitude();
+			CartesianVector resultVec = operator*(1.0f / magnitude);
+
+			return resultVec;
+		}
+
 		float CartesianVector::DotProduct(const CartesianVector& other) const
 		{
 			// Multiply the X, Y, and Z components of each vector

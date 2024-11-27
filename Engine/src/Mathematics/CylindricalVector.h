@@ -29,6 +29,9 @@ namespace Lumex {
 		float Magnitude() const;
 		float SquaredMagnitude() const;
 
+		/* Returns a vector with the same direction as this with length one */
+		CylindricalVector Normalized() const;
+
 		float DotProduct(const CylindricalVector& other) const;
 		CylindricalVector LinearInterpolate(const CylindricalVector& other, float percent) const;
 

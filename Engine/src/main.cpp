@@ -5,6 +5,7 @@
 #include "Mathematics/CylindricalVector.h"
 #include "Mathematics/SphericalVector.h"
 #include "Mathematics/Matrix.h"
+#include "Mathematics/Quaternion.h"
 
 using namespace Lumex;
 
@@ -122,6 +123,9 @@ void TEST_CartesianVector(const CartesianVector& vecA, const CartesianVector& ve
 
 	std::cout << "Vector Linear Interpolate A->B (50%)" << std::endl;
 	DEBUG_CartesianVector(vecA.LinearInterpolate(vecB, 0.5f));
+
+	std::cout << "Vector Normalized A" << std::endl;
+	DEBUG_CartesianVector(vecA.Normalized());
 }
 
 void TEST_CylindricalVector(const CylindricalVector& vecA, const CylindricalVector& vecB)
@@ -153,6 +157,9 @@ void TEST_CylindricalVector(const CylindricalVector& vecA, const CylindricalVect
 
 	std::cout << "Vector Linear Interpolate A->B (50%)" << std::endl;
 	DEBUG_CylindricalVector(vecA.LinearInterpolate(vecB, 0.5f));
+
+	std::cout << "Vector Normalized A" << std::endl;
+	DEBUG_CylindricalVector(vecA.Normalized());
 
 	std::cout << "Convert A to Cartesian Vector" << std::endl;
 	DEBUG_CartesianVector(vecA.ToCartesian());
@@ -190,6 +197,9 @@ void TEST_SphericalVector(const SphericalVector& vecA, const SphericalVector& ve
 
 	std::cout << "Vector Linear Interpolate A->B (50%)" << std::endl;
 	DEBUG_SphericalVector(vecA.LinearInterpolate(vecB, 0.5f));
+
+	std::cout << "Vector Normalized A" << std::endl;
+	DEBUG_SphericalVector(vecA.Normalized());
 
 	std::cout << "Convert A to Cartesian Vector" << std::endl;
 	DEBUG_CartesianVector(vecA.ToCartesian());
@@ -235,6 +245,29 @@ void TEST_UnitCircle()
 	std::cout << "Arctan2 Approximation (y=-1, x=-1) = " + std::to_string(Math::Arctan2(-1.0f, -1.0f)) << std::endl;
 }
 
+void DEBUG_Quaternion(const Quaternion& quaternion)
+{
+	CartesianVector Qv = quaternion.GetQv();
+	std::cout << "	Qx = " + std::to_string(Qv.X) << std::endl;
+	std::cout << "	Qy = " + std::to_string(Qv.Y) << std::endl;
+	std::cout << "	Qz = " + std::to_string(Qv.Z) << std::endl;
+	std::cout << "	Qw = " << std::to_string(quaternion.GetQw()) << std::endl;
+}
+
+void TEST_Quaternion(const Quaternion& quat, const CartesianVector& vec)
+{
+	std::cout << std::endl << "Testing Quaternion..." << std::endl;
+
+	std::cout << "Quaternion" << std::endl;
+	DEBUG_Quaternion(quat);
+
+	std::cout << "Vector" << std::endl;
+	DEBUG_CartesianVector(vec);
+
+	std::cout << "Vector rotated by Quaternion" << std::endl;
+	DEBUG_CartesianVector(quat.ApplyToCartesianVector(vec));
+}
+
 void TEST_Mathematics()
 {
 	std::cout << std::endl << "Testing Basic Mathematics..." << std::endl;
@@ -244,6 +277,11 @@ void TEST_Mathematics()
 	TEST_UnitCircle();
 	TEST_Vectors();
 	TEST_Matrices();
+
+	// This quaternion is a 180 degree rotation around the +x-axis
+	Quaternion quat(CartesianVector(1.0f, 0.0f, 0.0f), Math::PI);
+	CartesianVector vec(0.0f, 1.0f, 0.0f);
+	TEST_Quaternion(quat, vec);
 }
 
 int main()
