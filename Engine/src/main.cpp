@@ -4,8 +4,64 @@
 #include "Mathematics/CartesianVector.h"
 #include "Mathematics/CylindricalVector.h"
 #include "Mathematics/SphericalVector.h"
+#include "Mathematics/Matrix.h"
 
 using namespace Lumex;
+
+void DEBUG_Matrix44(const Matrix44& matrix)
+{
+	for (int row = 0; row < 4; row++)
+	{
+		const float* currentRow = matrix[row];
+		std::cout << "	";
+		for (int column = 0; column < 4; column++)
+		{
+			std::cout << currentRow[column] << " ";
+		}
+		std::cout << std::endl;
+	}
+}
+
+void TEST_Matrix44(const Matrix44& matA, const Matrix44& matB)
+{
+	std::cout << std::endl << "Testing 4x4 Matrix..." << std::endl;
+
+	std::cout << "Identity Matrix" << std::endl;
+	DEBUG_Matrix44(Matrix44::Identity());
+
+	std::cout << "Matrix A" << std::endl;
+	DEBUG_Matrix44(matA);
+
+	std::cout << "Matrix B" << std::endl;
+	DEBUG_Matrix44(matB);
+
+	std::cout << "Matrix A + B" << std::endl;
+	DEBUG_Matrix44(matA + matB);
+
+	std::cout << "Matrix A - B" << std::endl;
+	DEBUG_Matrix44(matA - matB);
+
+	std::cout << "Matrix A * B" << std::endl;
+	DEBUG_Matrix44(matA * matB);
+
+	std::cout << "Matrix A * 10" << std::endl;
+	DEBUG_Matrix44(matA * 10.0f);
+
+	std::cout << "Matrix A / 10" << std::endl;
+	DEBUG_Matrix44(matA / 10.0f);
+
+	std::cout << "Matrix Transpose of A" << std::endl;
+	DEBUG_Matrix44(matA.Transpose());
+}
+
+void TEST_Matrices()
+{
+	float valuesA[4][4] = { {10.0f, 11.0f, 12.0f, 13.0f}, {14.0f, 15.0f, 16.0f, 17.0f}, {18.0f, 19.0f, 20.0f, 21.0f}, {22.0f, 23.0f, 24.0f, 25.0f} };
+	float valuesB[4][4] = { {10.0f, 12.0f, 14.0f, 16.0f}, {18.0f, 20.0f, 22.0f, 24.0f}, {26.0f, 28.0f, 30.0f, 32.0f}, {34.0f, 36.0f, 38.0f, 40.0f} };
+	Matrix44 matA(valuesA);
+	Matrix44 matB(valuesB);
+	TEST_Matrix44(matA, matB);
+}
 
 void DEBUG_SphericalVector(const SphericalVector& vector)
 {
@@ -34,41 +90,38 @@ void DEBUG_CartesianVector(const CartesianVector& vector)
 	std::cout << "	Squared Magnitude = " << std::to_string(vector.SquaredMagnitude()) << std::endl;
 }
 
-void TEST_SphericalVector(const SphericalVector& vecA, const SphericalVector& vecB)
+void TEST_CartesianVector(const CartesianVector& vecA, const CartesianVector& vecB)
 {
-	std::cout << std::endl << "Testing Spherical Vector..." << std::endl;
+	std::cout << std::endl << "Testing Cartesian Vector..." << std::endl;
 
 	std::cout << "Vector A" << std::endl;
-	DEBUG_SphericalVector(vecA);
+	DEBUG_CartesianVector(vecA);
 
 	std::cout << "Vector B" << std::endl;
-	DEBUG_SphericalVector(vecB);
+	DEBUG_CartesianVector(vecB);
 
 	std::cout << "Vector A + B" << std::endl;
-	DEBUG_SphericalVector(vecA + vecB);
+	DEBUG_CartesianVector(vecA + vecB);
 
 	std::cout << "Vector -A" << std::endl;
-	DEBUG_SphericalVector(-vecA);
+	DEBUG_CartesianVector(-vecA);
 
 	std::cout << "Vector A - B" << std::endl;
-	DEBUG_SphericalVector(vecA - vecB);
+	DEBUG_CartesianVector(vecA - vecB);
 
 	std::cout << "Vector A * 10" << std::endl;
-	DEBUG_SphericalVector(vecA * 10.0f);
+	DEBUG_CartesianVector(vecA * 10.0f);
 
 	std::cout << "Vector A / 10" << std::endl;
-	DEBUG_SphericalVector(vecA / 10.0f);
+	DEBUG_CartesianVector(vecA / 10.0f);
 
-	std::cout << "A Dot B = " << vecA.DotProduct(vecB) << std::endl;
+	std::cout << "A Dot B = " << std::to_string(vecA.DotProduct(vecB)) << std::endl;
+
+	std::cout << "Vector A Cross B" << std::endl;
+	DEBUG_CartesianVector(vecA.CrossProduct(vecB));
 
 	std::cout << "Vector Linear Interpolate A->B (50%)" << std::endl;
-	DEBUG_SphericalVector(vecA.LinearInterpolate(vecB, 0.5f));
-
-	std::cout << "Convert A to Cartesian Vector" << std::endl;
-	DEBUG_CartesianVector(vecA.ToCartesian());
-
-	std::cout << "Convert B to Cartesian Vector" << std::endl;
-	DEBUG_CartesianVector(vecB.ToCartesian());
+	DEBUG_CartesianVector(vecA.LinearInterpolate(vecB, 0.5f));
 }
 
 void TEST_CylindricalVector(const CylindricalVector& vecA, const CylindricalVector& vecB)
@@ -108,38 +161,41 @@ void TEST_CylindricalVector(const CylindricalVector& vecA, const CylindricalVect
 	DEBUG_CartesianVector(vecB.ToCartesian());
 }
 
-void TEST_CartesianVector(const CartesianVector& vecA, const CartesianVector& vecB)
+void TEST_SphericalVector(const SphericalVector& vecA, const SphericalVector& vecB)
 {
-	std::cout << std::endl << "Testing Cartesian Vector..." << std::endl;
+	std::cout << std::endl << "Testing Spherical Vector..." << std::endl;
 
 	std::cout << "Vector A" << std::endl;
-	DEBUG_CartesianVector(vecA);
+	DEBUG_SphericalVector(vecA);
 
 	std::cout << "Vector B" << std::endl;
-	DEBUG_CartesianVector(vecB);
+	DEBUG_SphericalVector(vecB);
 
 	std::cout << "Vector A + B" << std::endl;
-	DEBUG_CartesianVector(vecA + vecB);
+	DEBUG_SphericalVector(vecA + vecB);
 
 	std::cout << "Vector -A" << std::endl;
-	DEBUG_CartesianVector(-vecA);
+	DEBUG_SphericalVector(-vecA);
 
 	std::cout << "Vector A - B" << std::endl;
-	DEBUG_CartesianVector(vecA - vecB);
+	DEBUG_SphericalVector(vecA - vecB);
 
 	std::cout << "Vector A * 10" << std::endl;
-	DEBUG_CartesianVector(vecA * 10.0f);
+	DEBUG_SphericalVector(vecA * 10.0f);
 
 	std::cout << "Vector A / 10" << std::endl;
-	DEBUG_CartesianVector(vecA / 10.0f);
+	DEBUG_SphericalVector(vecA / 10.0f);
 
-	std::cout << "A Dot B = " << std::to_string(vecA.DotProduct(vecB)) << std::endl;
-
-	std::cout << "Vector A Cross B" << std::endl;
-	DEBUG_CartesianVector(vecA.CrossProduct(vecB));
+	std::cout << "A Dot B = " << vecA.DotProduct(vecB) << std::endl;
 
 	std::cout << "Vector Linear Interpolate A->B (50%)" << std::endl;
-	DEBUG_CartesianVector(vecA.LinearInterpolate(vecB, 0.5f));
+	DEBUG_SphericalVector(vecA.LinearInterpolate(vecB, 0.5f));
+
+	std::cout << "Convert A to Cartesian Vector" << std::endl;
+	DEBUG_CartesianVector(vecA.ToCartesian());
+
+	std::cout << "Convert B to Cartesian Vector" << std::endl;
+	DEBUG_CartesianVector(vecB.ToCartesian());
 }
 
 void TEST_Vectors()
@@ -187,6 +243,7 @@ void TEST_Mathematics()
 
 	TEST_UnitCircle();
 	TEST_Vectors();
+	TEST_Matrices();
 }
 
 int main()
