@@ -9,6 +9,9 @@ namespace Lumex {
 
 		static float SquareRoot(float x);
 
+		/* Linear interpolation functions */
+		static float LinearInterpolate(float from, float to, float percent);
+
 		/* Basic trigonometric functions */
 		static float Sin(float radian);
 		static float Cos(float radian);

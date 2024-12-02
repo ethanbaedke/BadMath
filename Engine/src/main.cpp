@@ -6,6 +6,7 @@
 #include "Mathematics/SphericalVector.h"
 #include "Mathematics/Matrix.h"
 #include "Mathematics/Quaternion.h"
+#include "Mathematics/Random.h"
 
 using namespace Lumex;
 
@@ -268,11 +269,29 @@ void TEST_Quaternion(const Quaternion& quat, const CartesianVector& vec)
 	DEBUG_CartesianVector(quat.ApplyToCartesianVector(vec));
 }
 
+void TEST_Random()
+{
+	std::cout << std::endl << "Testing Random..." << std::endl;
+	std::cout << "Random Integer: " + std::to_string(Random::GetInt(-1, 1)) << std::endl;
+	std::cout << "Random Integer: " + std::to_string(Random::GetInt(-1, 1)) << std::endl;
+	std::cout << "Random Integer: " + std::to_string(Random::GetInt(-1, 1)) << std::endl;
+	std::cout << "Random Integer: " + std::to_string(Random::GetInt(-1, 1)) << std::endl;
+	std::cout << "Random Integer: " + std::to_string(Random::GetInt(-1, 1)) << std::endl;
+	std::cout << "Random Float: " + std::to_string(Random::GetFloat(-1.0f, 1.0f)) << std::endl;
+	std::cout << "Random Float: " + std::to_string(Random::GetFloat(-1.0f, 1.0f)) << std::endl;
+	std::cout << "Random Float: " + std::to_string(Random::GetFloat(-1.0f, 1.0f)) << std::endl;
+	std::cout << "Random Float: " + std::to_string(Random::GetFloat(-1.0f, 1.0f)) << std::endl;
+	std::cout << "Random Float: " + std::to_string(Random::GetFloat(-1.0f, 1.0f)) << std::endl;
+}
+
 void TEST_Mathematics()
 {
 	std::cout << std::endl << "Testing Basic Mathematics..." << std::endl;
 	std::cout << "Square Root Approximation (64) = " + std::to_string(Math::SquareRoot(64.0f)) << std::endl;
 	std::cout << "Square Root Approximation (10,000,000,000) = " + std::to_string(Math::SquareRoot(10000000000.0f)) << std::endl;
+
+	std::cout << "Linear Interpolation (-3, 1) (50%) = " + std::to_string(Math::LinearInterpolate(-3.0f, 1.0f, 0.5f)) << std::endl;
+	std::cout << "Linear Interpolation (-1, 1) (75%) = " + std::to_string(Math::LinearInterpolate(-1.0f, 1.0f, 0.75f)) << std::endl;
 
 	TEST_UnitCircle();
 	TEST_Vectors();
@@ -282,6 +301,8 @@ void TEST_Mathematics()
 	Quaternion quat(CartesianVector(1.0f, 0.0f, 0.0f), Math::PI);
 	CartesianVector vec(0.0f, 1.0f, 0.0f);
 	TEST_Quaternion(quat, vec);
+
+	TEST_Random();
 }
 
 int main()

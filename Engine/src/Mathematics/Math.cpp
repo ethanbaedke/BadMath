@@ -11,6 +11,11 @@ namespace Lumex {
 			return 1.0f / InverseSquareRoot(x);
 		}
 
+		float Math::LinearInterpolate(float from, float to, float percent)
+		{
+			return (from * (1.0f - percent)) + (to * percent);
+		}
+
 		float Math::Sin(float radian)
 		{
 			bool flip;
