@@ -3,6 +3,7 @@
 #include <xmmintrin.h>
 
 namespace Lumex {
+	namespace Mathematics {
 
 		const float Math::PI = 3.1415927f;
 
@@ -63,7 +64,7 @@ namespace Lumex {
 		{
 			// This is our first guess at what the value might be
 			float value = (Math::PI / 2);
-			
+
 			// Here we use a Newton-Raphson iteration formula to hone our value
 			for (int i = 0; i < 5; i++)
 				value += (Math::Cos(value) - ratio) / Math::Sin(value);
@@ -259,5 +260,5 @@ namespace Lumex {
 
 			return arctanValue;
 		}
-
+	}
 }

@@ -3,6 +3,7 @@
 #include <xmmintrin.h>
 
 namespace Lumex {
+	namespace Mathematics {
 
 		CartesianVector::CartesianVector()
 		{
@@ -100,7 +101,7 @@ namespace Lumex {
 
 			// Add these to get the resultent
 			CartesianVector resultVec = thisComponent.operator+(otherComponent);
-			
+
 			return resultVec;
 		}
 
@@ -173,4 +174,5 @@ namespace Lumex {
 
 			return resultVec;
 		}
+	}
 }

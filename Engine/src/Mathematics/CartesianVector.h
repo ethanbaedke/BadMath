@@ -3,6 +3,7 @@
 #include "Math.h"
 
 namespace Lumex {
+	namespace Mathematics {
 
 		/*
 		CartesianVector is a Vector that is represented with X, Y, and Z
@@ -42,5 +43,5 @@ namespace Lumex {
 
 		/* Operator overload for multiplication where the scalar is on the left */
 		CartesianVector operator*(float scalar, const CartesianVector& cv);
-
+	}
 }

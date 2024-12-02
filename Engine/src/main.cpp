@@ -8,7 +8,10 @@
 #include "Mathematics/Quaternion.h"
 #include "Mathematics/Random.h"
 
-using namespace Lumex;
+#include "Core/RenderManager.h"
+
+using namespace Lumex::Mathematics;
+using namespace Lumex::Core;
 
 void DEBUG_Matrix44(const Matrix44& matrix)
 {
@@ -308,6 +311,11 @@ void TEST_Mathematics()
 int main()
 {
 	TEST_Mathematics();
+	std::cout << std::endl;
+
+	// Test making a singleton
+	RenderManager* renderManager = new RenderManager();
+	std::cout << std::to_string(RenderManager::Get().TestFunction()) << std::endl;
 
 	return 0;
 }
