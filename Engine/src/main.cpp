@@ -1,21 +1,23 @@
 #include <iostream>
 #include <string>
 
-#include "Core/RenderManager.h"
+#include "Core/MemoryManager.h"
+#include "Core/LXPtr.h"
 
 using namespace Lumex::Core;
 
 // Declare testing functions from the Testing folder
 extern void TEST_Mathematics();
+extern void TEST_Memory();
 
 int main()
 {
+	// Create managers
+	MemoryManager* renderManager = new MemoryManager();
+
 	// Testing
 	//TEST_Mathematics();
-
-	// Test making a singleton
-	RenderManager* renderManager = new RenderManager();
-	std::cout << std::to_string(RenderManager::Get().TestFunction()) << std::endl;
+	TEST_Memory();
 
 	return 0;
 }
