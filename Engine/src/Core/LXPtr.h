@@ -36,6 +36,12 @@ namespace Lumex {
 			/* Destructor */
 			~LXPtr()
 			{
+				// If this pointer is null, destroy nothing
+				if (m_AddressHash == static_cast<uintptr_t>(0))
+				{
+					return;
+				}
+
 				// Remove this pointer as a reference to a row in the table, if it is the last pointer looking at that row, delete the data
 				if (MemoryManager::Get().RemoveReference(m_AddressHash))
 				{
@@ -60,8 +66,22 @@ namespace Lumex {
 					return *this;
 				}
 
+				// If this is not a nullptr, remove a reference from what this was already looking at
+				if (m_AddressHash != static_cast<uintptr_t>(0))
+				{
+					if (MemoryManager::Get().RemoveReference(m_AddressHash))
+					{
+						delete operator->();
+					}
+				}
+
+				// If we are setting this pointer to a non-null pointer, add a reference to that existing pointer
+				if (ptr.m_AddressHash != static_cast<uintptr_t>(0))
+				{
+					MemoryManager::Get().AddReference(ptr.m_AddressHash);
+				}
+
 				m_AddressHash = ptr.m_AddressHash;
-				MemoryManager::Get().AddReference(m_AddressHash);
 				return *this;
 			}
 		};

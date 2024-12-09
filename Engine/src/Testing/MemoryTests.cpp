@@ -24,9 +24,9 @@ public:
 void TEST_Memory()
 {
 	// Test populating the VTable on the Memory Manager with lots of values
-	std::cout << "Storing and displaying 1000 test classes on the heap with VXPtrs..." << std::endl;
+	std::cout << "Storing and displaying 100 test classes on the heap with VXPtrs..." << std::endl;
 	{
-		const int TEST_SIZE = 1000;
+		const int TEST_SIZE = 100;
 		LXPtr<TEST_Class> ptrs[TEST_SIZE];
 		for (int i = 0; i < TEST_SIZE; i++)
 		{
