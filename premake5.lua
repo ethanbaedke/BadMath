@@ -1,4 +1,4 @@
-workspace "Lumex"
+workspace "BadMath"
     architecture "x64"
     cppdialect "C++17"
 
@@ -21,11 +21,11 @@ workspace "Lumex"
 
         defines { LX_RELEASE }
 
-project "Engine"
-    location "Engine"
+project "BadMath"
+    location "BadMath"
     kind "ConsoleApp"
     language "C++"
     
-    files { "Engine/src/**.h", "Engine/src/**.cpp" }
+    files { "BadMath/src/**.h", "BadMath/src/**.cpp" }
 
-    includedirs { "Engine/src" }
+    includedirs { "BadMath/src" }
